@@ -18,17 +18,19 @@ import java.util.HashSet;
 @Entity
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
-        allowGetters = true)
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
+    @Column(name = "user_name")
+    private String userName;
+
+    @Column(name = "first_name")
     private String firstName;
 
-    @NotBlank
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(nullable = false, updatable = false)
@@ -47,6 +49,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFirstName() {

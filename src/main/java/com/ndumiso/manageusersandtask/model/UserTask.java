@@ -22,9 +22,15 @@ public class UserTask {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
-    @Column(name = "task")
-    private String task;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "date_time")
+    private String dateTime;
 
     @Column(nullable = false , updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,17 +42,27 @@ public class UserTask {
     @LastModifiedDate
     private Date updatedAt;
 
-    @ManyToOne
+
     @JoinColumns({@JoinColumn(name = "user_id",referencedColumnName="id")})
-    private User user;
+    private  Long userId;
 
-    public User getUser() {
-        return this.user;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
 
     public Long getId() {
         return id;
@@ -56,12 +72,12 @@ public class UserTask {
         this.id = id;
     }
 
-    public String getTask() {
-        return task;
+    public String getName() {
+        return name;
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getCreatedAt() {
@@ -80,10 +96,11 @@ public class UserTask {
         this.updatedAt = updatedAt;
     }
 
-    public  Long getUserRefenceId(User user){
+    public String getDescription() {
+        return description;
+    }
 
-        Long userId = user.getId();
-
-        return userId;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

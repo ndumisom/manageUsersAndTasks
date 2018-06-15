@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>manageusertask</name>
-	<description>Manage user task</description>
+	<description>Manage user name</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

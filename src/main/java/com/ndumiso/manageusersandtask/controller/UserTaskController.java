@@ -3,7 +3,6 @@ package com.ndumiso.manageusersandtask.controller;
 import com.ndumiso.manageusersandtask.exception.ResourceNotFoundException;
 import com.ndumiso.manageusersandtask.model.User;
 import com.ndumiso.manageusersandtask.model.UserTask;
-import com.ndumiso.manageusersandtask.repository.UserRepository;
 import com.ndumiso.manageusersandtask.repository.UserTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,33 +22,34 @@ public class UserTaskController {
     UserTaskRepository userTaskRepository;
 
 
-    @GetMapping("/task")
+    @GetMapping("/{id}/name")
     public List<UserTask> getAllUserTask() {
         return userTaskRepository.findAll();
     }
 
-    @PostMapping("/task")
-    public UserTask createUserTask(@RequestBody @Valid UserTask userTask) {
+    @PostMapping("/{id}/name")
+    public UserTask createUserTask(@RequestBody @Valid UserTask userTask,@PathVariable(value = "id") Long userTaskId) {
+        userTask.setUserId(userTaskId);
         return userTaskRepository.save(userTask);
     }
 
-    @GetMapping("/task/{id}")
+    @GetMapping("/{id}/name/{id}")
     public UserTask getUserTaskById(@PathVariable(value = "id") Long userTaskId) {
         return userTaskRepository.findById(userTaskId).orElseThrow(() -> new ResourceNotFoundException("UserTask", "id", userTaskId));
     }
 
-    @PutMapping("/task/{id}")
+    @PutMapping("/{id}/name/{id}")
     public UserTask updateUserTask(@PathVariable(value = "id") Long userTaskId,
                                    @RequestBody @Valid User userDetails) {
 
         UserTask userTask = userTaskRepository.findById(userTaskId).orElseThrow(() -> new ResourceNotFoundException("UserTask", "id", userTaskId));
-        userTask.setTask(userTask.getTask());
+        userTask.setName(userTask.getName());
 
         UserTask updatedUserTask = userTaskRepository.save(userTask);
         return updatedUserTask;
     }
 
-    @DeleteMapping("/task/{id}")
+    @DeleteMapping("/{id}/name/{id}")
     public ResponseEntity<?> deleteUserTask(@PathVariable(value = "id") Long userTaskId) {
         UserTask userTask = userTaskRepository.findById(userTaskId).orElseThrow(() -> new ResourceNotFoundException("UserTask", "id", userTaskId));
 
@@ -57,5 +57,6 @@ public class UserTaskController {
 
         return ResponseEntity.ok().build();
     }
+
 
 }

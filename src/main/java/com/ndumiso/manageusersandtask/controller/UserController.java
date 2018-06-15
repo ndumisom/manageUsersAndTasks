@@ -17,7 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api")
-public class ManageUserTaskController {
+public class UserController {
 
     @Autowired
     UserRepository userRepository;
@@ -45,6 +45,7 @@ public class ManageUserTaskController {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
         user.setFirstName(user.getFirstName());
         user.setLastName(user.getLastName());
+        user.setUserName(user.getUserName());
 
         User updatedUser = userRepository.save(user);
         return updatedUser;
